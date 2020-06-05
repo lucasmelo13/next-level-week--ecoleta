@@ -1,0 +1,52 @@
+{%extends "layout.html"%}}
+<!--vai pegar as partes faltando no codigo e completar com as coisas dentro do layout-->
+
+{% set pageId = "page-search-results" %}
+
+{% block title %}
+    <title>Resultado da pesquisa</title>
+{% endblock title %}
+
+{# Block vai indicar nesse codigo , oq precisa ser inserido no outro codigo (layout.html) #}
+{% block styles %}
+    <link rel="stylesheet" href="/Styles/search-results.css">
+{% endblock styles %}
+
+{% block content %}
+    {%include "partials/page-header.html"%}
+    <!--faz parte do nunjunk e vai passar pelo motor dele-->
+
+    <main>
+        {# ------------------utilizando if com o Nunjuckes #}
+        {% if total > 0 %}
+            <h4>
+                <strong>{{total}} pontos </strong>encontrados
+            </h4>
+
+            <div class="cards">
+            
+                {# ---------------------utilizar a estrutura de repetiçao do nunjuckes #}
+                {% for place in places %}
+                    <div class="card">
+                        <img src="{{ place.image}}" alt="{{place.name}}">
+                        <h1>{{place.name}}</h1>
+                        <h3>{{place.items}}</h3>
+                        <p>
+                            {{ place.city }}, {{ place.state }}
+                        <br/>
+                            {{place.address}}
+                        <br/>
+                            {{place.address2}}
+                        </p>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        {%else%}
+            <h4><strong>Nenhum</strong> local encontrado</h4>
+        {% endif %}
+        
+
+    </main>
+{% endblock content %}
